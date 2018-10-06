@@ -1,0 +1,19 @@
+version: '2'
+services:
+    filter_bulder_dev:
+        build: ./build
+        image: evoluttobr/filter_builder:lastest
+        container_name: filter_bulder_dev
+        command: /opt/scripts/run-task
+        ports:
+            - "7000:7000"
+        volumes:
+            # local de desenvolvimento da aplicacao
+            - ..:/opt/app
+
+        environment:
+          - DEV_TASK=${DEV_TASK}
+          - ENTRYPOINT=${ENTRYPOINT}
+          - ENVIRONMENT_TASK=${ENVIRONMENT}
+          - APPLICATION_TASK=${APPLICATION}
+          - CONFIGS=${CONFIGS}

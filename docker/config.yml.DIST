@@ -1,0 +1,45 @@
+config:
+   # Diretório para montar o ambiente "prod_local" dentro do container
+   # usado como testes
+   prod_local_root_dir: /home/omar/dados/evolutto_dev/frontend
+
+
+   #
+   # - projetos NPM linkados
+   #
+   npm_linked:
+     evoluttree: ../../evoluttree
+
+
+   #
+   # - servidores para onde se pode realizar deploys
+   #
+   deploy_servers:
+       # ---> servidor especial para deploy local - NÃO APAGAR/NEM MODIFICAR
+       prodLocal:
+          # branch do repositório que será deploado
+          branch: master
+          # servidor para onde enviar
+          servers: root@localhost
+          # local no s servidor
+          deployTo: /opt/prod_local
+
+       #
+       # ---> os demais servidores devem definidos a partir daqui
+       #
+       evoluttoProd:
+          branch: prod
+          servers: evolutto@webserver.evolutto.com.br
+          deployTo: /var/www/front
+
+          # a chave deve ter apenas o nome do arquivo, sem directorio, pontos, barras, etc
+          key: 'id_rsa_digitalocean'
+
+
+       # ---> servidor especial para deploy local - NÃO APAGAR/NEM MODIFICAR
+       evoluttoStaging:
+           branch: master
+           servers: evolutto@staging.evolutto.com.br
+           deployTo: /home/evolutto/dados/convites-contrato/frontend
+           # a chave deve ter apenas o nome do arquivo, sem directorio, pontos, barras, etc
+           key: 'id_rsa_digitalocean'

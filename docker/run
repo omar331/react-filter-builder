@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import argparse
+import os
+from subprocess import call
+
+import yaml
+import json
+
+with open("config.yml", 'r') as stream:
+    try:
+        info = yaml.load(stream)
+        config = info["config"]
+    except yaml.YAMLError as exc:
+        print(exc)
+
+
+parser = argparse.ArgumentParser(description='')
+
+parser.add_argument('-t','--task', help='Tarefa a ser executada',required=False)
+parser.add_argument('-s','--entrypoint', help='Entrypoint',required=False, default='./src/main.jsx')
+parser.add_argument('-e','--environment', help='Utilizada na tarefa deploy. Ambiente para onde fazer o deploy',required=False, default='')
+parser.add_argument('-ds','--deploy-server', help='Utilizada na tarefa "deploy". Servidor para onde fazer o deploy. Ver configurações em config.yml',required=False, default='prod-local')
+
+args = parser.parse_args()
+
+task = args.task
+
+environment = "dev"
+application = "none"
+
+environment = args.environment
+entrypoint = args.entrypoint
+deploy_server = args.deploy_server
+
+os.environ["DEV_TASK"] = task
+os.environ["PROD_LOCAL_ROOT_DIR"] = config["prod_local_root_dir"]
+os.environ["ENVIRONMENT"] = environment
+os.environ["ENTRYPOINT"] = entrypoint
+os.environ["DEPLOY_SERVER"] = deploy_server
+os.environ["APPLICATION"] = application
+os.environ["CONFIGS"] = json.dumps(config)
+
+os.system("docker-compose up")
