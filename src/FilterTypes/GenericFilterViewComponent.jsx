@@ -2,7 +2,7 @@ import React from 'react'
 
 import PropTypes from 'prop-types'
 
-import { FormGroup, ControlLabel, HelpBlock, FormControl, Row, Col } from 'react-bootstrap'
+import { Badge } from 'react-bootstrap'
 
 export default class GenericFilterViewComponent extends React.Component {
     constructor(props) {
@@ -21,13 +21,8 @@ export default class GenericFilterViewComponent extends React.Component {
     }
 
     render() {
-        const { label, value, helptext } = this.props
-        return <Row style={ {marginBottom: '1em'} }>
-                    <Col md={12}>
-                        <b>{ label }</b><br />
-                        { value }
-                    </Col>
-            </Row>
+        const {label, value, helptext} = this.props
+        return <span><b>{label}</b> {value}</span>
     }
 }
 

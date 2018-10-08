@@ -1,0 +1,24 @@
+.filter-builder {
+    font-size: 0.9em;
+}
+
+
+.filter-builder .applied .filter {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 0.3em;
+    padding: 0.5em;
+    margin-right: 1em;
+    color: black;
+    background: #eee;
+    margin-bottom: 0.5em;
+
+}
+
+
+
+.filter-builder .applied .filter A.remove {
+    display: inline-block;
+    margin-left: 0.5em;
+    font-weight: bold;
+}

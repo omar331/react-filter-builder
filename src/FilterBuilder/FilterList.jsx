@@ -2,7 +2,7 @@ import React from 'react'
 
 import PropTypes from 'prop-types'
 
-import { Row, Col, Badge } from 'react-bootstrap'
+import { Row, Col, Label } from 'react-bootstrap'
 
 export default class FilterList extends React.Component {
     constructor(props) {
@@ -26,10 +26,7 @@ export default class FilterList extends React.Component {
 
         let keyn = 0
 
-        return <div className={"fb-list"}>
-            <h4>Filtros já aplicados</h4>
-
-
+        return <div className={"applied"}>
             {appliedFilters.map((selectedFilter) => {
                 const {type, value} = selectedFilter
 
@@ -38,22 +35,15 @@ export default class FilterList extends React.Component {
                 // TODO: Validar aqui com PropTypes?
                 const ViewComponent = filterInfo.viewComponent
 
-                return <Row key={ 'filter_key-' + selectedFilter.key }>
-                            <Col md={10}>
-                                <ViewComponent
-                                    key={ "filter_component_" + (++keyn) }
-                                    label={ filterInfo.displayName }
-                                    value={ selectedFilter.value }
-                                />
-                            </Col>
-                            <Col md={2}>
-                                <Badge
-                                    onClick={ this.handleRemoveFilter(selectedFilter.key).bind(this)}
-                                    style={ {cursor: 'pointer'} }
-
-                                >x</Badge>
-                            </Col>
-                    </Row>
+                return <div className={ "filter" }>
+                            <ViewComponent
+                                key={ "filter_component_" + (++keyn) }
+                                label={ filterInfo.displayName }
+                                value={ selectedFilter.value }
+                            />
+                            <a className={"remove"} onClick={ this.handleRemoveFilter(selectedFilter.key).bind(this)}
+                                style={ {cursor: 'pointer'} }>x</a>
+                       </div>
             })
             }
         </div>

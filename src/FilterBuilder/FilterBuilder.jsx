@@ -4,9 +4,10 @@ import PropTypes from 'prop-types'
 
 import { FormGroup, ControlLabel, FormControl, Row, Col } from 'react-bootstrap'
 
-
 import FilterAdd from './FilterAdd.jsx'
 import FilterList from './FilterList.jsx'
+
+import './style/style.css'
 
 export default class FilterBuilder extends React.Component {
     constructor(props) {
@@ -44,7 +45,7 @@ export default class FilterBuilder extends React.Component {
     render() {
         const { selectedFilters, availableFilters, resetAdd } = this.state
 
-        return <div>
+        return <div className={ "filter-builder" }>
                     <Row>
                         <Col md={5}>
                             <FilterAdd availableFilters={ availableFilters }
