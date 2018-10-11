@@ -25,8 +25,11 @@ export default class FilterBuilder extends React.Component {
     }
 
     handleRemoveFilter(filterKey) {
-        // TODO: implementar remoção de filtro
-        console.log('  -----  Remover filtro key = %s', filterKey)
+        const { selectedFilters } = this.state
+
+        delete selectedFilters[filterKey]
+
+        this.setState({selectedFilters, resetAdd: true}, this.handleFiltersChange )
     }
 
     handleAddFinish( selectedFilter, value ) {
