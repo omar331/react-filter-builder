@@ -13,11 +13,11 @@ export default class FilterList extends React.Component {
         }
     }
 
-    handleRemoveFilter(key) {
+    handleRemoveFilter(type) {
         const { onRemoveFilter } = this.props
 
         return (e) => {
-            if ( onRemoveFilter ) onRemoveFilter(key)
+            if ( onRemoveFilter ) onRemoveFilter(type)
         }
     }
 
@@ -27,21 +27,22 @@ export default class FilterList extends React.Component {
         let keyn = 0
 
         return <div className={"applied"}>
-            {appliedFilters.map((selectedFilter) => {
-                const {type, value} = selectedFilter
+            {Object.keys(appliedFilters).map((type) => {
+                let selectedFilter = appliedFilters[type]
+
+                const { value} = selectedFilter
 
                 const filterInfo = this.props.filterDefinitions[type]
 
                 // TODO: Validar aqui com PropTypes?
                 const ViewComponent = filterInfo.viewComponent
 
-                return <div className={ "filter" }>
+                return <div className={ "filter filter-type-" + type } key={ "filter_view-" + type }>
                             <ViewComponent
-                                key={ "filter_component_" + (++keyn) }
                                 label={ filterInfo.displayName }
-                                value={ selectedFilter.value }
+                                value={ value }
                             />
-                            <a className={"remove"} onClick={ this.handleRemoveFilter(selectedFilter.key).bind(this)}
+                            <a className={"remove"} onClick={ this.handleRemoveFilter(type).bind(this)}
                                 style={ {cursor: 'pointer'} }>x</a>
                        </div>
             })
@@ -53,7 +54,7 @@ export default class FilterList extends React.Component {
 
 FilterList.propTypes = {
     /* Current applied filters */
-    appliedFilters: PropTypes.array,
+    appliedFilters: PropTypes.object,
 
     /* All available filter definitions */
     filterDefinitions: PropTypes.object,

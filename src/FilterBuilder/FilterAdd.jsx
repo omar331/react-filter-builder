@@ -19,7 +19,7 @@ export default class FilterAdd extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if ( nextProps.reset === true ) {
-            this.setState({selectedFilter: null})
+            this.setState({selectedFilter: null, availableFilters: nextProps.availableFilters})
         }
     }
 

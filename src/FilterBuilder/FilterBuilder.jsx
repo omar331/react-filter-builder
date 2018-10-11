@@ -9,6 +9,8 @@ import FilterList from './FilterList.jsx'
 
 import './style/style.css'
 
+const uuidv4 = require('uuid/v4');
+
 export default class FilterBuilder extends React.Component {
     constructor(props) {
         super(props)
@@ -30,15 +32,37 @@ export default class FilterBuilder extends React.Component {
     handleAddFinish( selectedFilter, value ) {
         let { selectedFilters } = this.state
 
-        selectedFilters.push(
-            {
-                type: selectedFilter.type,
-                key: "filter-" + Math.random(),
-                value
-            }
-        )
+        selectedFilters[selectedFilter.type] = {
+                                                    type: selectedFilter.type,
+                                                    value
+                                                }
 
-        this.setState({selectedFilters, resetAdd: true})
+        this.setState({selectedFilters, resetAdd: true}, this.handleFiltersChange )
+    }
+
+
+
+    handleFiltersChange() {
+        const { onFiltersChange } = this.props
+
+        if ( onFiltersChange ) onFiltersChange(this.state.selectedFilters )
+    }
+
+
+    getNotTakenFilters() {
+        const { availableFilters, selectedFilters } = this.state
+
+        const selectedKeys = Object.keys(selectedFilters)
+
+        let notTaken =  {}
+
+        Object.keys(availableFilters).map( (avKey) => {
+            if ( selectedKeys.indexOf(avKey) == -1 ) {
+                notTaken[avKey] = availableFilters[avKey]
+            }
+        })
+
+        return notTaken
     }
 
 
@@ -48,7 +72,7 @@ export default class FilterBuilder extends React.Component {
         return <div className={ "filter-builder" }>
                     <Row>
                         <Col md={5}>
-                            <FilterAdd availableFilters={ availableFilters }
+                            <FilterAdd availableFilters={ this.getNotTakenFilters() }
                                        onFinish={ this.handleAddFinish.bind(this) }
                                        reset={ resetAdd }
                             />
@@ -63,34 +87,6 @@ export default class FilterBuilder extends React.Component {
                 </div>
 
     }
-
-
-    // TODO: NAO APAGAR USAR QUANDO FOR FAZER O EDITOR DE FILTRO
-    // render() {
-    //     const { selectedFilters } = this.state
-    //
-    //     let keyn = 0
-    //
-    //     return <div>
-    //         {selectedFilters.map((selectedFilter) => {
-    //             const {type, value} = selectedFilter
-    //
-    //             const filterInfo = this.props.availableFilters[type]
-    //
-    //             // TODO: Validar aqui com PropTypes?
-    //             const EditFilterComponent = filterInfo.editComponent
-    //
-    //             return <EditFilterComponent
-    //                         key={ "filter_component_" + (++keyn) }
-    //                         label={ filterInfo.displayName }
-    //                         value={ selectedFilter.value }
-    //                         helptext={ "Science bitch! #elenão"}
-    //
-    //             />
-    //         })
-    //         }
-    //     </div>
-    // }
 }
 
 
@@ -99,5 +95,9 @@ FilterBuilder.propTypes = {
     availableFilters: PropTypes.object,
 
     /* Selected filters */
-    selectedFilters: PropTypes.array,
+    selectedFilters: PropTypes.object,
+
+
+    /* Called when filter changes */
+    onFiltersChange: PropTypes.func,
 }

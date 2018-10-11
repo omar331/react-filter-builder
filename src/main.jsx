@@ -54,10 +54,10 @@ const onProdutoSearch = (queryExtraParams) => {
 
 
 let availableFilters = {
-    consultor: {
+    consultor_responsavel: {
         editComponent: AutoCompleteFilterEditComponent,
         viewComponent: AutoCompleteFilterViewComponent,
-        displayName: 'Consultor',
+        displayName: 'Consultor responsável',
         validate: (value) => { // faz validacao
         },
         custom: {
@@ -151,8 +151,9 @@ let availableFilters = {
 //         value: ['2018-01-01', '2018-12-31']
 //     },
 // ]
-let currentFilters = [
-]
+
+
+let currentFilters = {}
 
 render(
     <div>
@@ -167,6 +168,7 @@ render(
         <FilterBuilder
             availableFilters={ availableFilters }
             selectedFilters={ currentFilters }
+            onFiltersChange={ (filters) => { console.log(' filters = %o', filters)} }
         />
 
     </div>,

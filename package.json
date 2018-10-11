@@ -84,6 +84,7 @@
     "superagent": "3.8.1",
     "superagent-mocker": "0.5.2",
     "transit-immutable-js": "^0.7.0",
+    "uuid": "^3.3.2",
     "validator": "9.4.1",
     "webpack-dev-server": "^3.1.8"
   },
