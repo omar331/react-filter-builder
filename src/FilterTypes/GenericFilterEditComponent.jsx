@@ -1,8 +1,8 @@
 import React from 'react'
 
-import PropTypes from 'prop-types'
-
 import { FormGroup, ControlLabel, HelpBlock, FormControl, Row, Col } from 'react-bootstrap'
+
+import filterEditPropTypes from './FilterEditPropTypes.jsx'
 
 export default class GenericFilterEditComponent extends React.Component {
     constructor(props) {
@@ -50,17 +50,5 @@ export default class GenericFilterEditComponent extends React.Component {
 }
 
 
-GenericFilterEditComponent.propTypes = {
-    // Label
-    label: PropTypes.string,
+GenericFilterEditComponent.propTypes = filterEditPropTypes
 
-    // Texto de ajuda
-    helptext: PropTypes.string,
-
-    // Valor
-    // TODO: definir o tipo corretamente
-    value: PropTypes.any,
-
-    // Invocado quando é finalizada a entrada do valor
-    onFinishInput: PropTypes.func,
-}

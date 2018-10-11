@@ -59,8 +59,8 @@ export default class FilterAdd extends React.Component {
             return <Typeahead options={ this.getFilterOptions() }
                        labelKey={ option => `${option.displayName}`}
                        onChange={ this.handleChange.bind(this) }
-                       autoFocus
                         placeholder={ "Escolha o que deseja filtrar"}
+                        autoFocus
             />
         }
 
@@ -76,16 +76,20 @@ export default class FilterAdd extends React.Component {
 
         const EditComponent = selectedFilter.editComponent
 
+        // Custom fields
+        let custom = selectedFilter.hasOwnProperty('custom') ? selectedFilter.custom : {}
 
         return <EditComponent
                     onFinishInput={ this.handleFinishEnterValue.bind(this)}
-
+                    custom={ custom }
                 />
     }
 
 
     handleFinishEnterValue(filterValue) {
         const { onFinish } = this.props
+
+        console.log('  -----  filterValue  = %o', filterValue )
 
         if ( onFinish ) onFinish(this.state.selectedFilter, filterValue )
     }

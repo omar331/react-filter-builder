@@ -3,33 +3,75 @@ import { render } from 'react-dom'
 
 import FilterBuilder from './FilterBuilder/FilterBuilder.jsx'
 
-
 /* --- Tipos de Filtro --- */
 import GenericFilterEditComponent from './FilterTypes/GenericFilterEditComponent.jsx'
 import GenericFilterViewComponent from './FilterTypes/GenericFilterViewComponent.jsx'
 
+import AutoCompleteFilterEditComponent from './FilterTypes/AutoCompleteFilterEditComponent.jsx'
+import AutoCompleteFilterViewComponent from './FilterTypes/AutoCompleteFilterViewComponent.jsx'
+import request from "superagent";
+
+
+const onUsuarioSearch = (queryExtraParams) => {
+    return (query) => {
+        return new Promise((resolve, reject) => {
+            request.get('https://localhost:8090/app_dev.php/api/v1/contratos/usuarios-suggest.json')
+                .query( Object.assign(queryExtraParams, query) )
+                .end((err, res) => {
+
+                    let options = []
+
+                    if (err === null) {
+                        options = res.body.suggestions
+                    }
+
+                    resolve(options)
+                })
+        })
+    }
+}
+
+
+const onProdutoSearch = (queryExtraParams) => {
+    return (query) => {
+        return new Promise((resolve, reject) => {
+            request.get('https://localhost:8090/app_dev.php/api/v1/contratos/produtos-suggest.json')
+                .query( Object.assign(queryExtraParams, query) )
+                .end((err, res) => {
+
+                    let options = []
+
+                    if (err === null) {
+                        options = res.body.suggestions
+                    }
+
+                    resolve(options)
+                })
+        })
+    }
+}
+
+
 
 let availableFilters = {
     consultor: {
-        editComponent: GenericFilterEditComponent,
-        viewComponent: GenericFilterViewComponent,
+        editComponent: AutoCompleteFilterEditComponent,
+        viewComponent: AutoCompleteFilterViewComponent,
         displayName: 'Consultor',
         validate: (value) => { // faz validacao
         },
         custom: {
-            autocomplete_url: 'https://autocomplete.consultor.url',
-            extraQueryParams: {a: 1, b: 2}
+            onSearch: onUsuarioSearch({grupo: 'consultores'})
         }
     },
     produto: {
-        editComponent: GenericFilterEditComponent,
-        viewComponent: GenericFilterViewComponent,
-        displayName: 'Produto',
+        editComponent: AutoCompleteFilterEditComponent,
+        viewComponent: AutoCompleteFilterViewComponent,
+        displayName: 'Produto que vc quer',
         validate: (value) => { // faz validacao
         },
         custom: {
-            autocomplete_url: 'https://autocomplete.produto.url',
-            extraQueryParams: {a: 1, b: 2}
+            onSearch: onProdutoSearch({})
         }
     },
     organizacao: {
@@ -44,14 +86,13 @@ let availableFilters = {
         }
     },
     comercial_responsavel: {
-        editComponent: GenericFilterEditComponent,
-        viewComponent: GenericFilterViewComponent,
+        editComponent: AutoCompleteFilterEditComponent,
+        viewComponent: AutoCompleteFilterViewComponent,
         displayName: 'Responsável comercial',
         validate: (value) => { // faz validacao
         },
         custom: {
-            autocomplete_url: 'https://autocomplete.organizacao.url',
-            extraQueryParams: {a: 1, b: 2}
+            onSearch: onUsuarioSearch({grupo: 'comercial'})
         }
     },
     vigencia_contrato: {
