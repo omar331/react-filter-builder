@@ -3,17 +3,6 @@ import { render } from 'react-dom'
 
 import FilterBuilder from './FilterBuilder/FilterBuilder.jsx'
 
-/* --- Tipos de Filtro --- */
-import GenericFilterEditComponent from './FilterTypes/GenericFilterEditComponent.jsx'
-import GenericFilterViewComponent from './FilterTypes/GenericFilterViewComponent.jsx'
-
-import AutoCompleteFilterEditComponent from './FilterTypes/AutoCompleteFilterEditComponent.jsx'
-import AutoCompleteFilterViewComponent from './FilterTypes/AutoCompleteFilterViewComponent.jsx'
-
-
-import RadioSelectEditComponent from './FilterTypes/RadioSelectEditComponent.jsx'
-import RadioViewComponent from './FilterTypes/RadioViewComponent.jsx'
-
 import request from "superagent";
 
 
@@ -60,32 +49,28 @@ const onProdutoSearch = (queryExtraParams) => {
 
 let availableFilters = {
     consultor_responsavel: {
-        editComponent: AutoCompleteFilterEditComponent,
-        viewComponent: AutoCompleteFilterViewComponent,
+        type: 'autocomplete',
         displayName: 'Consultor responsável',
         custom: {
             onSearch: onUsuarioSearch({grupo: 'consultores'})
         }
     },
     comercial_responsavel: {
-        editComponent: AutoCompleteFilterEditComponent,
-        viewComponent: AutoCompleteFilterViewComponent,
+        type: 'autocomplete',
         displayName: 'Responsável comercial',
         custom: {
             onSearch: onUsuarioSearch({grupo: 'comercial'})
         }
     },
     produto: {
-        editComponent: AutoCompleteFilterEditComponent,
-        viewComponent: AutoCompleteFilterViewComponent,
+        type: 'autocomplete',
         displayName: 'Produto contratado',
         custom: {
             onSearch: onProdutoSearch({})
         }
     },
     consultoria_situacao: {
-        editComponent: RadioSelectEditComponent,
-        viewComponent: RadioViewComponent,
+        type: 'radio',
         displayName: 'Situação da consultoria',
         custom: {
             options: {

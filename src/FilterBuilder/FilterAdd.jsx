@@ -89,8 +89,6 @@ export default class FilterAdd extends React.Component {
     handleFinishEnterValue(filterValue) {
         const { onFinish } = this.props
 
-        console.log('  -----  filterValue  = %o', filterValue )
-
         if ( onFinish ) onFinish(this.state.selectedFilter, filterValue )
     }
 

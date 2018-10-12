@@ -9,6 +9,8 @@ import FilterList from './FilterList.jsx'
 
 import './style/style.css'
 
+import builtinFilterDefs from '../FilterTypes/builtInFiltersDefs.jsx'
+
 export default class FilterBuilder extends React.Component {
     constructor(props) {
         super(props)
@@ -16,11 +18,32 @@ export default class FilterBuilder extends React.Component {
 
         this.state = {
             selectedFilters: props.selectedFilters,
-            availableFilters: props.availableFilters,
+            availableFilters: this.prepareAvailableFilters(props.availableFilters),
 
             resetAdd: false
         }
     }
+
+
+
+    prepareAvailableFilters(filters) {
+        let avFilters = {}
+        Object.keys(filters).map( (filterKey) => {
+            let filter = filters[filterKey]
+
+            let type = filter.type
+
+            let filterTypeDefs = builtinFilterDefs[type]
+
+            delete filter['type']
+
+            avFilters[filterKey] = Object.assign(filter, filterTypeDefs)
+        })
+
+        return avFilters
+    }
+
+
 
     handleRemoveFilter(filterKey) {
         const { selectedFilters } = this.state
@@ -37,6 +60,9 @@ export default class FilterBuilder extends React.Component {
                                                     type: selectedFilter.type,
                                                     value
                                                 }
+
+
+// console.log('  selected filters ')
 
         this.setState({selectedFilters, resetAdd: true}, this.handleFiltersChange )
     }
@@ -80,7 +106,7 @@ export default class FilterBuilder extends React.Component {
                         </Col>
                         <Col md={7}>
                             <FilterList appliedFilters={selectedFilters}
-                                        filterDefinitions={ this.props.availableFilters}
+                                        filterDefinitions={ availableFilters}
                                         onRemoveFilter={ this.handleRemoveFilter.bind(this) }
                             />
                         </Col>
