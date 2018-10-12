@@ -41,6 +41,7 @@ export default class FilterList extends React.Component {
                             <ViewComponent
                                 label={ filterInfo.displayName }
                                 value={ value }
+                                custom={ filterInfo.custom }
                             />
                             <a className={"remove"} onClick={ this.handleRemoveFilter(type).bind(this)}
                                 style={ {cursor: 'pointer'} }>x</a>

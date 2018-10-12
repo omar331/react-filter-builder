@@ -9,6 +9,11 @@ import GenericFilterViewComponent from './FilterTypes/GenericFilterViewComponent
 
 import AutoCompleteFilterEditComponent from './FilterTypes/AutoCompleteFilterEditComponent.jsx'
 import AutoCompleteFilterViewComponent from './FilterTypes/AutoCompleteFilterViewComponent.jsx'
+
+
+import RadioSelectEditComponent from './FilterTypes/RadioSelectEditComponent.jsx'
+import RadioViewComponent from './FilterTypes/RadioViewComponent.jsx'
+
 import request from "superagent";
 
 
@@ -58,106 +63,45 @@ let availableFilters = {
         editComponent: AutoCompleteFilterEditComponent,
         viewComponent: AutoCompleteFilterViewComponent,
         displayName: 'Consultor responsável',
-        validate: (value) => { // faz validacao
-        },
         custom: {
             onSearch: onUsuarioSearch({grupo: 'consultores'})
-        }
-    },
-    produto: {
-        editComponent: AutoCompleteFilterEditComponent,
-        viewComponent: AutoCompleteFilterViewComponent,
-        displayName: 'Produto que vc quer',
-        validate: (value) => { // faz validacao
-        },
-        custom: {
-            onSearch: onProdutoSearch({})
-        }
-    },
-    organizacao: {
-        editComponent: GenericFilterEditComponent,
-        viewComponent: GenericFilterViewComponent,
-        displayName: 'Organização',
-        validate: (value) => { // faz validacao
-        },
-        custom: {
-            autocomplete_url: 'https://autocomplete.organizacao.url',
-            extraQueryParams: {a: 1, b: 2}
         }
     },
     comercial_responsavel: {
         editComponent: AutoCompleteFilterEditComponent,
         viewComponent: AutoCompleteFilterViewComponent,
         displayName: 'Responsável comercial',
-        validate: (value) => { // faz validacao
-        },
         custom: {
             onSearch: onUsuarioSearch({grupo: 'comercial'})
         }
     },
-    vigencia_contrato: {
-        editComponent: GenericFilterEditComponent,
-        viewComponent: GenericFilterViewComponent,
-        displayName: 'Periodo de vigência de contrato',
-        validate: (value) => { // faz validacao
-        },
+    produto: {
+        editComponent: AutoCompleteFilterEditComponent,
+        viewComponent: AutoCompleteFilterViewComponent,
+        displayName: 'Produto contratado',
         custom: {
-            autocomplete_url: 'https://autocomplete.produto.url',
-            extraQueryParams: {a: 1, b: 2}
+            onSearch: onProdutoSearch({})
         }
     },
-    cidade: {
-        editComponent: GenericFilterEditComponent,
-        viewComponent: GenericFilterViewComponent,
-        displayName: 'Cidade',
-        validate: (value) => { // faz validacao
-        },
+    consultoria_situacao: {
+        editComponent: RadioSelectEditComponent,
+        viewComponent: RadioViewComponent,
+        displayName: 'Situação da consultoria',
         custom: {
-            autocomplete_url: 'https://autocomplete.produto.url',
-            extraQueryParams: {a: 1, b: 2}
+            options: {
+                '1': 'ativa',
+                '0': 'inativa'
+            }
         }
     },
-    consultoria_ativa: {
-        editComponent: GenericFilterEditComponent,
-        viewComponent: GenericFilterViewComponent,
-        displayName: 'Consultoria ativa',
-        validate: (value) => { // faz validacao
-        },
-        custom: {
-            autocomplete_url: 'https://autocomplete.produto.url',
-            extraQueryParams: {a: 1, b: 2}
-        }
-    },
-
-
 }
-
-
-// let currentFilters = [
-//     {
-//         // cada filtro recebe uma chave única
-//         key: '111',
-//         type: 'consultor',
-//         value: 'Ariane Ferreira'
-//     },
-//     {
-//         key: '222',
-//         type: 'comercial_responsavel',
-//         value: 'Adair Mendes'
-//     },
-//     {
-//         key: '333',
-//         type: 'vigencia_contrato',
-//         value: ['2018-01-01', '2018-12-31']
-//     },
-// ]
 
 
 let currentFilters = {}
 
 render(
     <div>
-        <h3>Filter Builder Dev Enviroment</h3>
+        <h3>Construtor de filtros</h3>
 
         <p>
             Você verá o que é uma busca rápida e flexível.

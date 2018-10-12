@@ -19,8 +19,11 @@ const component = class extends React.Component {
     }
 
     render() {
-        const {label, value, helptext} = this.props
-        return <span><b>{label}</b> {value}</span>
+        const {label, value, helptext, custom } = this.props
+
+        const { options } = custom
+
+        return <span><b>{label}</b> {options[value]}</span>
     }
 }
 

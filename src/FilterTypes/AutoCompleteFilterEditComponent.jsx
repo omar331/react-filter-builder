@@ -4,7 +4,7 @@ import { FormGroup, ControlLabel, HelpBlock, FormControl, Row, Col } from 'react
 
 import { AsyncTypeahead } from 'react-bootstrap-typeahead'
 
-import filterEditPropTypes from './FilterEditPropTypes.jsx'
+import filterEditPropTypes from './filterEditPropTypes.jsx'
 
 
 export default class AutoCompleteFilterEditComponent extends React.Component {

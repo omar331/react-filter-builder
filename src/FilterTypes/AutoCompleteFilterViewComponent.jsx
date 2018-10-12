@@ -1,10 +1,8 @@
 import React from 'react'
 
-import PropTypes from 'prop-types'
+import filterViewPropTypes from './filterViewPropTypes'
 
-import { Badge } from 'react-bootstrap'
-
-export default class AutoCompleteFilterViewComponent extends React.Component {
+const component = class extends React.Component {
     constructor(props) {
         super(props)
 
@@ -27,11 +25,7 @@ export default class AutoCompleteFilterViewComponent extends React.Component {
 }
 
 
-AutoCompleteFilterViewComponent.propTypes = {
-    // Label
-    label: PropTypes.string,
+component.propTypes = filterViewPropTypes
 
-    // Valor
-    // TODO: definir o tipo corretamente
-    value: PropTypes.any,
-}
+export default component
+

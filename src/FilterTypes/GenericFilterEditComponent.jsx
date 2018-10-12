@@ -2,7 +2,7 @@ import React from 'react'
 
 import { FormGroup, ControlLabel, HelpBlock, FormControl, Row, Col } from 'react-bootstrap'
 
-import filterEditPropTypes from './FilterEditPropTypes.jsx'
+import filterEditPropTypes from './filterEditPropTypes.jsx'
 
 export default class GenericFilterEditComponent extends React.Component {
     constructor(props) {

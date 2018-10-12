@@ -9,8 +9,6 @@ import FilterList from './FilterList.jsx'
 
 import './style/style.css'
 
-const uuidv4 = require('uuid/v4');
-
 export default class FilterBuilder extends React.Component {
     constructor(props) {
         super(props)
