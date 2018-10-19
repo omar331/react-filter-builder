@@ -6,10 +6,10 @@ import FilterBuilder from './FilterBuilder/FilterBuilder.jsx'
 import request from "superagent";
 
 
-const onUsuarioSearch = (queryExtraParams) => {
+const onConsultorResponsavelSearch = (queryExtraParams) => {
     return (query) => {
         return new Promise((resolve, reject) => {
-            request.get('https://localhost:8090/app_dev.php/api/v1/contratos/usuarios-suggest.json')
+            request.get('https://localhost:8090/app_dev.php/api/v1/contratos/consultor-responsavel-suggest.json')
                 .query( Object.assign(queryExtraParams, query) )
                 .end((err, res) => {
 
@@ -52,14 +52,14 @@ let availableFilters = {
         type: 'autocomplete',
         displayName: 'Consultor responsável',
         custom: {
-            onSearch: onUsuarioSearch({grupo: 'consultores'})
+            onSearch: onConsultorResponsavelSearch({grupo: 'consultores'})
         }
     },
     comercial_responsavel: {
         type: 'autocomplete',
         displayName: 'Responsável comercial',
         custom: {
-            onSearch: onUsuarioSearch({grupo: 'comercial'})
+            onSearch: onConsultorResponsavelSearch({grupo: 'comercial'})
         }
     },
     produto: {
@@ -69,16 +69,16 @@ let availableFilters = {
             onSearch: onProdutoSearch({})
         }
     },
-    consultoria_situacao: {
-        type: 'radio',
-        displayName: 'Situação da consultoria',
-        custom: {
-            options: {
-                '1': 'ativa',
-                '0': 'inativa'
-            }
-        }
-    },
+    // consultoria_situacao: {
+    //     type: 'radio',
+    //     displayName: 'Situação da consultoria',
+    //     custom: {
+    //         options: {
+    //             '1': 'ativa',
+    //             '0': 'inativa'
+    //         }
+    //     }
+    // },
 }
 
 

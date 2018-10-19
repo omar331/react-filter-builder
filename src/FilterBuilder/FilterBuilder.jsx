@@ -128,3 +128,7 @@ FilterBuilder.propTypes = {
     /* Called when filter changes */
     onFiltersChange: PropTypes.func,
 }
+
+
+export { FilterBuilder }
+

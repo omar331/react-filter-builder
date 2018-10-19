@@ -2,7 +2,7 @@ import React from 'react'
 
 import { FormGroup, ControlLabel, HelpBlock, FormControl, Row, Col } from 'react-bootstrap'
 
-import { AsyncTypeahead } from 'react-bootstrap-typeahead'
+import { AsyncTypeahead, Highlighter } from 'react-bootstrap-typeahead'
 
 import filterEditPropTypes from './filterEditPropTypes.jsx'
 
@@ -68,7 +68,6 @@ export default class AutoCompleteFilterEditComponent extends React.Component {
                                       isLoading={ isLoading }
                                         onChange={ this.handleChange.bind(this)}
                                         autoFocus
-
                     />
                     { helptext !== null ? <HelpBlock>{ helptext }</HelpBlock> : null }
         </FormGroup>
